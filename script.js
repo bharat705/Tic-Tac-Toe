@@ -13,8 +13,9 @@ function displayGamePage() {
 }
 
 function restartGame() {
-  document.getElementById("start-page").style.display = "block";
-  document.getElementById("game-page").style.display = "none";
+  // document.getElementById("start-page").style.display = "none";
+  // document.getElementById("game-page").style.display = "none";
+  document.getElementById("winning-message").style.display = "flex";
 }
 
 document.querySelector(".start-btn").addEventListener("click", displayGamePage);
