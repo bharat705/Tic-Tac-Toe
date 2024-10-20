@@ -30,7 +30,7 @@ function handleClick(event) {
   const currentClass = xTurn ? X_CLASS : O_CLASS;
   placeMark(cell, currentClass);
   if (checkWin(currentClass)) {
-    endGame(false);
+    endGame(false, currentClass);
   } else if (isDraw()) {
     endGame(true);
   } else {
@@ -51,16 +51,18 @@ function checkWin(currentClass) {
   });
 }
 
-function endGame(draw) {
+function endGame(draw, currentClass) {
   if (draw) {
     // winningMessageElement.innerText = "Draw!"
+    console.log("Draw");
   } else {
     // winningMessageElement.innerText = `${currentClass} wins!`
+    console.log(`${currentClass} wins!`);
   }
 }
 
 function isDraw() {
-  return cellElements.every((cell) => {
+  return [...cellElements].every((cell) => {
     return cell.classList.contains(X_CLASS) || cell.classList.contains(O_CLASS);
   });
 }
