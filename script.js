@@ -12,7 +12,13 @@ function displayGamePage() {
   document.getElementById("game-page").style.display = "flex";
 }
 
-document.querySelector(".start-btn").addEventListener("click", displayGamePage)
+function restartGame() {
+  document.getElementById("start-page").style.display = "block";
+  document.getElementById("game-page").style.display = "none";
+}
+
+document.querySelector(".start-btn").addEventListener("click", displayGamePage);
+document.querySelector(".restart-btn").addEventListener("click", restartGame);
 
 const X_CLASS = "x";
 const O_CLASS = "o";
