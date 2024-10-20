@@ -7,16 +7,67 @@
     <link rel="stylesheet" href="./style.css" />
   </head>
   <body>
-    <div class="game-board" id="game-board">
-      <div class="cell" data-cell="0"></div>
-      <div class="cell" data-cell="2"></div>
-      <div class="cell" data-cell="3"></div>
-      <div class="cell" data-cell="4"></div>
-      <div class="cell" data-cell="5"></div>
-      <div class="cell" data-cell="6"></div>
-      <div class="cell" data-cell="7"></div>
-      <div class="cell" data-cell="8"></div>
-      <div class="cell" data-cell="9"></div>
+    <!-- Start Page -->
+    <div class="container" id="start-page">
+      <div class="title-section">
+        <h1 class="title">Tic Tac Toe</h1>
+        <p class="tagline">Ready to challenge your friend?</p>
+      </div>
+
+      <div class="input-section">
+        <div class="input-box">
+          <input type="text" id="playerX" placeholder=" " />
+          <label for="playerX">Player X Name</label>
+        </div>
+        <div class="input-box">
+          <input type="text" id="playerO" placeholder=" " />
+          <label for="playerO">Player O Name</label>
+        </div>
+      </div>
+
+      <button class="start-btn">Let’s Play!</button>
+
+      <div class="footer">
+        <p>© 2024 Bharat Aryal</p>
+      </div>
+    </div>
+    <!-- Main Game Page -->
+    <div id="game-page" class="container" style="display: none">
+      <div class="title-section">
+        <h1 class="title">Tic Tac Toe</h1>
+      </div>
+
+      <div class="scoreboard">
+        <div class="score">
+          <p id="playerXScore">Player X: 0</p>
+          <p id="playerOScore">Player O: 0</p>
+        </div>
+      </div>
+
+      <div class="game-board" id="game-board">
+        <div class="cell" data-cell="0"></div>
+        <div class="cell" data-cell="2"></div>
+        <div class="cell" data-cell="3"></div>
+        <div class="cell" data-cell="4"></div>
+        <div class="cell" data-cell="5"></div>
+        <div class="cell" data-cell="6"></div>
+        <div class="cell" data-cell="7"></div>
+        <div class="cell" data-cell="8"></div>
+        <div class="cell" data-cell="9"></div>
+      </div>
+      <button class="start-btn">Restart Game</button>
+    </div>
+
+    <!-- Winning Message Section -->
+    <div
+      id="winning-message"
+      class="winning-message-overlay"
+      style="display: none"
+    >
+      <div class="winning-message-container">
+        <h2 id="winning-text">Player X Wins!</h2>
+        <button class="start-btn" onclick="restartGame()">Play Again</button>
+      </div>
     </div>
 
     <script type="module" src="./script.js"></script>
