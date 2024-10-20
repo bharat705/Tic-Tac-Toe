@@ -1,3 +1,19 @@
+function displayGamePage() {
+  // Get player names
+  const playerX = document.getElementById("playerX").value || "Player X";
+  const playerO = document.getElementById("playerO").value || "Player O";
+
+  // Set initial scores
+  document.getElementById("playerXScore").textContent = `${playerX}: 0`;
+  document.getElementById("playerOScore").textContent = `${playerO}: 0`;
+
+  // Hide start page and show game page
+  document.getElementById("start-page").style.display = "none";
+  document.getElementById("game-page").style.display = "flex";
+}
+
+document.querySelector(".start-btn").addEventListener("click", displayGamePage)
+
 const X_CLASS = "x";
 const O_CLASS = "o";
 const WINNING_COMBINATIONS = [

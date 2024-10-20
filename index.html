@@ -11,7 +11,7 @@
     <div class="container" id="start-page">
       <div class="title-section">
         <h1 class="title">Tic Tac Toe</h1>
-        <p class="tagline">Ready to challenge your friend?</p>
+        <p class="tagline">Challenge your friends</p>
       </div>
 
       <div class="input-section">
@@ -32,16 +32,13 @@
       </div>
     </div>
     <!-- Main Game Page -->
-    <div id="game-page" class="container" style="display: none">
-      <div class="title-section">
-        <h1 class="title">Tic Tac Toe</h1>
+    <div id="game-page" class="game-page" style="display: none">
+      <div class="game-header">
+        <h1 class="game-title">Tic Tac Toe</h1>
       </div>
 
-      <div class="scoreboard">
-        <div class="score">
-          <p id="playerXScore">Player X: 0</p>
-          <p id="playerOScore">Player O: 0</p>
-        </div>
+      <div class="turn-indicator">
+        <p id="turnIndicatorText">Player X's Turn</p>
       </div>
 
       <div class="game-board" id="game-board">
@@ -55,7 +52,15 @@
         <div class="cell" data-cell="8"></div>
         <div class="cell" data-cell="9"></div>
       </div>
-      <button class="start-btn">Restart Game</button>
+
+      <div class="scoreboard-container">
+        <div class="scoreboard">
+          <p id="playerXScore">Player X: 0</p>
+          <p id="tieScore">Ties:</p>
+          <p id="playerOScore">Player O: 0</p>
+        </div>
+        <button class="restart-btn">Restart</button>
+      </div>
     </div>
 
     <!-- Winning Message Section -->

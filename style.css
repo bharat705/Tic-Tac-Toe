@@ -49,8 +49,11 @@ h6 {
 /* styles for start page */
 body,
 html {
-  height: 100%;
+  min-height: 100%;
   background: linear-gradient(135deg, #6e8efb, #a777e3);
+  background-attachment: fixed;
+  background-size: cover;
+
   font-family: "Poppins", sans-serif;
 
   display: flex;
@@ -60,12 +63,14 @@ html {
 
 .container {
   width: 90%;
-  /* max-width: 700px; */
+  flex-grow: 1;
+  max-width: 500px;
   text-align: center;
   background-color: rgba(255, 255, 255, 0.15);
   border-radius: 20px;
   padding: 30px;
   backdrop-filter: blur(10px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 }
 
 .title-section {
@@ -73,37 +78,43 @@ html {
 }
 
 .title {
-  font-size: 3em;
+  font-size: 3.5rem;
   color: white;
   letter-spacing: 2px;
-  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+  text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
   animation: fadeInTitle 1.5s ease-out;
 }
 
 .tagline {
-  font-size: 1.2em;
-  color: #ddd;
-  margin-top: 10px;
-  animation: typing 2s steps(30, end) forwards;
+  font-size: 1.2rem;
+  color: #ffdb58;
+  font-weight: 700;
+  margin: 0 0 40px;
+  text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+  opacity: 0;
+  animation: fadeInTagline 2s ease-out 0.5s forwards; /* Fade in with a delay */
 }
 
 .input-section {
-  margin-top: 20px;
-  margin-bottom: 20px;
+  margin: 20px 0;
+
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
 }
 
 .input-box {
   position: relative;
-  margin-bottom: 20px;
 }
 
 .input-box input {
   width: 100%;
-  padding: 15px;
+  padding: 15px 30px;
   border: none;
   outline: none;
   border-radius: 30px;
-  font-size: 1em;
+  font-size: 1rem;
   color: #333;
   background: rgba(255, 255, 255, 0.8);
   transition: 0.3s;
@@ -126,29 +137,42 @@ html {
 
 .input-box input:focus + label,
 .input-box input:not(:placeholder-shown) + label {
-  top: 10px;
-  font-size: 0.8em;
-  color: #6e8efb;
+  top: 0;
+  left: 20px;
+  font-size: 0.9rem;
+  font-weight: bold;
+  color: #fff;
+  background-color: #ff7eb3;
+  padding: 2px 10px;
+  border-radius: 10px;
 }
 
-.start-btn {
+.start-btn,
+.restart-btn {
   background: #ff7eb3;
-  color: white;
   padding: 15px 40px;
+  color: #ffdb58;
+
   border: none;
   border-radius: 30px;
-  font-size: 1.2em;
+  font-size: 1.2rem;
+  font-weight: bold;
+
   cursor: pointer;
-  transition: 0.3s;
+  transition: background-color 0.3s ease, transform 0.3s ease;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  margin-bottom: 15px 0;
 }
 
-.start-btn:hover {
+.start-btn:hover,
+.restart-btn:hover {
   background: #ff4a9a;
+  transform: scale(1.05);
 }
 
-.start-btn:active {
-  transform: translateY(2px);
+.start-btn:active,
+.restart-btn:active {
+  transform: scale(1);
 }
 
 .footer {
@@ -156,27 +180,92 @@ html {
 }
 
 .footer p {
-    color: white;
-    font-size: 0.8em;
-    opacity: 0.7;
+  color: white;
+  font-size: 0.8em;
+  opacity: 0.7;
 }
 
-/* styles for game-board */
+/* styles for game-page */
 :root {
-  --cell-size: 100px;
+  --cell-size: 150px;
   --mark-size: calc(var(--cell-size) * 0.9);
 }
 
-.game-board {
+.game-page {
   width: 100vw;
   height: 100vh;
+  text-align: center;
 
+  padding: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.game-header {
+  margin: 0 40px 10px;
+  position: relative;
+}
+
+.game-title {
+  font-size: 3rem;
+  font-weight: 700;
+  color: #fff;
+
+  text-transform: uppercase;
+  letter-spacing: 5px;
+  position: relative;
+
+  padding: 10px 40px;
+  display: inline-block;
+
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+}
+
+.game-header {
+  opacity: 0;
+  animation: fadeIn 1.5s ease-in forwards;
+}
+
+.turn-indicator {
+  margin: 20px 0;
+  padding: 15px 20px;
+}
+
+#turnIndicatorText {
+  font-size: 1.5em;
+  font-weight: 700;
+  color: #ffdb58;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.turn-indicator.active #turnIndicatorText {
+  color: #ffd700;
+  transform: scale(1.05);
+}
+
+.turn-indicator.glow #turnIndicatorText {
+  animation: glowEffect 1s ease forwards;
+}
+
+.game-board {
   display: grid;
   grid-template-columns: repeat(3, auto);
   justify-content: center;
   align-content: center;
   justify-items: center;
   align-items: center;
+
+  min-width: 600px;
+  margin: 10px 0 60px;
+  padding: 15px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 30px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
 }
 
 .cell {
@@ -190,6 +279,7 @@ html {
 
   position: relative;
   cursor: pointer;
+  transition: background 0.3s ease, transform 0.3s ease;
 }
 
 .cell:first-child,
@@ -275,5 +365,114 @@ html {
 .game-board.o .cell:not(.x):not(.o):hover::after {
   width: calc(var(--mark-size) * 0.7);
   height: calc(var(--mark-size) * 0.7);
-  background-color: white;
+  background-color: #9088f0;
+}
+
+.cell.winning {
+  animation: winningHighlight 1s infinite alternate; /* Flashing effect for winning line */
+}
+
+.scoreboard-container {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  align-items: center;
+  gap: 20px;
+
+  min-width: 700px;
+  margin-bottom: 40px;
+  padding: 15px 20px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 20px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.scoreboard {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 15px 10px;
+  background: rgba(0, 0, 0, 0.6);
+  border-radius: 15px; 
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.scoreboard p {
+  display: flex;
+
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #fff;
+  text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
+}
+
+/* for screen less than 500px */
+@media screen and (max-width: 700px) {
+  :root {
+    --cell-size: 100px;
+  }
+
+  .game-board {
+    min-width: 350px;
+  }
+
+  .scoreboard-container {
+    min-width: 350px;
+  }
+}
+
+/* Animations */
+@keyframes fadeInTitle {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInTagline {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes glowEffect {
+  0% {
+    text-shadow: 0 0 5px rgba(255, 219, 88, 0.3),
+      0 0 10px rgba(255, 219, 88, 0.2);
+  }
+  100% {
+    text-shadow: 0 0 20px rgba(255, 219, 88, 0.8),
+      0 0 30px rgba(255, 219, 88, 0.6);
+  }
+}
+
+@keyframes winningHighlight {
+  0% {
+    background: #ffdb58;
+  }
+  100% {
+    background: #ffd700;
+  }
 }
