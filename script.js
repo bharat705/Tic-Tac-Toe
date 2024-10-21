@@ -162,10 +162,20 @@ const createGame = (() => {
     }
   }
 
-  function resetGame() {
+  function restartGame() {
+    resetCells();
+    xTurn = true;
+    updateScorePage();
+    updateTurnIndicator();
+    startGame();
+  }
+
+  function quitGame() {
     inputForm.reset();
     resetCells();
+    resetScore();
     displayStartPage();
+    startGame();
   }
 
   function resetCells() {
@@ -187,6 +197,6 @@ const createGame = (() => {
   }
 
   // event listeners
-  restartBtn.addEventListener("click", resetGame);
-  
+  restartBtn.addEventListener("click", restartGame);
+  quitBtn.addEventListener("click", quitGame);
 })();
