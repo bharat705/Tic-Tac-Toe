@@ -97,7 +97,7 @@ const createGame = (() => {
       highlightWinningCells(winningCombination);
       setTimeout(() => {
         endGame(false);
-      }, 2000);
+      }, 1000); // 1000 ms = 1 sec
     } else if (isDraw()) {
       endGame(true);
       tieScore++;
