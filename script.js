@@ -178,6 +178,12 @@ const createGame = (() => {
     startGame();
   }
 
+  function playNextRound() {
+    winningMessagePage.style.display = "none";
+    gamePage.style.display = "flex";
+    restartGame();
+  }
+
   function resetCells() {
     cellElements.forEach((cell) => {
       cell.classList.remove(X_CLASS, O_CLASS);
@@ -199,4 +205,5 @@ const createGame = (() => {
   // event listeners
   restartBtn.addEventListener("click", restartGame);
   quitBtn.addEventListener("click", quitGame);
+  nextRoundBtn.addEventListener("click", playNextRound);
 })();
