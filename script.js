@@ -8,6 +8,7 @@ const createGame = (() => {
   let tieScore = 0;
   let playerXName, playerOName;
   let currentClass, CurrentPlayerName;
+  let winningCombination = [];
   const WINNING_COMBINATIONS = [
     [0, 1, 2],
     [0, 3, 6],
@@ -92,8 +93,11 @@ const createGame = (() => {
     setCurrentValues();
     placeMark(cell, currentClass);
     if (checkWin(currentClass)) {
-      endGame(false);
       xTurn ? xScore++ : oScore++;
+      highlightWinningCells(winningCombination);
+      setTimeout(() => {
+        endGame(false);
+      }, 2000);
     } else if (isDraw()) {
       endGame(true);
       tieScore++;
@@ -113,10 +117,26 @@ const createGame = (() => {
 
   // check for win
   function checkWin(currentClass) {
-    return WINNING_COMBINATIONS.some((combination) => {
-      return combination.every((index) => {
+    // Reset the winningCombination before checking
+    winningCombination = [];
+
+    const isWinner = WINNING_COMBINATIONS.some((combination) => {
+      const hasWon = combination.every((index) => {
         return cellElements[index].classList.contains(currentClass);
       });
+      if (hasWon) {
+        winningCombination = combination; // Store the winning combination
+      }
+      return hasWon;
+    });
+
+    return isWinner; // Return the boolean value indicating if there is a winner
+  }
+
+  function highlightWinningCells(winningCombination) {
+    // Add a class to the cells in the winning combination
+    winningCombination.forEach((index) => {
+      cellElements[index].classList.add("winning-cell");
     });
   }
 
@@ -188,7 +208,7 @@ const createGame = (() => {
 
   function resetCells() {
     cellElements.forEach((cell) => {
-      cell.classList.remove(X_CLASS, O_CLASS);
+      cell.classList.remove(X_CLASS, O_CLASS, "winning-cell");
     });
   }
 

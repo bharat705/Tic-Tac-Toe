@@ -368,8 +368,8 @@ html {
   background-color: #9088f0;
 }
 
-.cell.winning {
-  animation: winningHighlight 1s infinite alternate; /* Flashing effect for winning line */
+.winning-cell {
+  animation: flash 1s infinite;
 }
 
 .scoreboard-container {
@@ -564,11 +564,14 @@ html {
   }
 }
 
-@keyframes winningHighlight {
-  0% {
-    background: #ffdb58;
-  }
+@keyframes flash {
+  0%,
   100% {
-    background: #ffd700;
+    background-color: #ffdb58; 
+    color: #ffffff; 
+  }
+  50% {
+    background-color: #f39c12; 
+    color: #ffffff;
   }
 }
