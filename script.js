@@ -1,11 +1,3 @@
-function restartGame() {
-  // document.getElementById("start-page").style.display = "none";
-  // document.getElementById("game-page").style.display = "none";
-  document.getElementById("winning-message").style.display = "flex";
-}
-
-document.querySelector(".restart-btn").addEventListener("click", restartGame);
-
 const createGame = (() => {
   // define variables
   const X_CLASS = "x";
@@ -14,6 +6,8 @@ const createGame = (() => {
   let xScore = 0;
   let oScore = 0;
   let tieScore = 0;
+  let playerXName, playerOName;
+  let currentClass, CurrentPlayerName;
   const WINNING_COMBINATIONS = [
     [0, 1, 2],
     [0, 3, 6],
@@ -41,6 +35,10 @@ const createGame = (() => {
   const playerOScoreElement = document.getElementById("playerOScore");
   const tieScoreElement = document.getElementById("tieScore");
 
+  const winningMessagePage = document.getElementById("winning-message");
+  const congratulationsElement = document.getElementById("congratulation");
+  const winningMessageElement = document.getElementById("winning-text");
+
   startGame();
 
   // start game and add event listener to cells
@@ -54,24 +52,39 @@ const createGame = (() => {
 
   // Display game page after taking the input
   function displayGamePage() {
+    setPlayersName();
+    setCurrentValues();
     updateGamePage();
+    updateTurnIndicator();
     // Hide start page and show game page
     startPage.style.display = "none";
     gamePage.style.display = "flex";
   }
 
+  function setPlayersName() {
+    playerXName = playerXInput.value.toUpperCase() || "PLAYER X";
+    playerOName = playerOInput.value.toUpperCase() || "PLAYER O";
+  }
+
+  function setCurrentValues() {
+    CurrentPlayerName = xTurn ? playerXName : playerOName;
+    currentClass = xTurn ? X_CLASS : O_CLASS;
+  }
+
   function updateGamePage() {
-    const playerXName = playerXInput.value || "Player X";
-    const playerOName = playerOInput.value || "Player O";
     playerXScoreElement.textContent = `${playerXName}: ${xScore}`;
     playerOScoreElement.textContent = `${playerOName}: ${oScore}`;
-    tieScoreElement.textContent = `Ties: ${tieScore}`;
+    tieScoreElement.textContent = `TIES: ${tieScore}`;
+  }
+
+  function updateTurnIndicator() {
+    turnIndicatorTextElement.textContent = `${CurrentPlayerName}'s Turn`;
   }
 
   // handle cell clicking
   function handleClick(event) {
     const cell = event.target;
-    const currentClass = xTurn ? X_CLASS : O_CLASS;
+    setCurrentValues();
     placeMark(cell, currentClass);
     if (checkWin(currentClass)) {
       endGame(false, currentClass);
@@ -79,6 +92,9 @@ const createGame = (() => {
       endGame(true);
     } else {
       switchTurns();
+      setCurrentValues();
+      updateGamePage();
+      updateTurnIndicator();
       setBoardHoverClass();
     }
   }
@@ -100,12 +116,14 @@ const createGame = (() => {
   // end game
   function endGame(draw, currentClass) {
     if (draw) {
-      // winningMessageElement.innerText = "Draw!"
+      congratulationsElement.textContent = "Tight Game!!";
+      winningMessageElement.textContent = `It's a Tie`;
       console.log("Draw");
     } else {
-      // winningMessageElement.innerText = `${currentClass} wins!`
-      console.log(`${currentClass} wins!`);
+      congratulationsElement.textContent = "Congratulations!!";
+      winningMessageElement.textContent = `${CurrentPlayerName} wins!`;
     }
+    displayWinningMessagePage();
   }
 
   // check for draw
@@ -117,6 +135,10 @@ const createGame = (() => {
     });
   }
 
+  // Display winning message page
+  function displayWinningMessagePage() {
+    winningMessagePage.style.display = "flex";
+  }
   // switch turns
   function switchTurns() {
     xTurn = !xTurn;
