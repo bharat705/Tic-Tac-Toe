@@ -145,6 +145,7 @@ const createGame = (() => {
   // Display winning message page
   function displayWinningMessagePage() {
     winningMessagePage.style.display = "flex";
+    gamePage.classList.add("inactive");
   }
   // switch turns
   function switchTurns() {
@@ -181,6 +182,7 @@ const createGame = (() => {
   function playNextRound() {
     winningMessagePage.style.display = "none";
     gamePage.style.display = "flex";
+    gamePage.classList.remove("inactive");
     restartGame();
   }
 
@@ -199,6 +201,7 @@ const createGame = (() => {
   function displayStartPage() {
     startPage.style.display = "block";
     gamePage.style.display = "none";
+    gamePage.classList.remove("inactive");
     winningMessagePage.style.display = "none";
   }
 
