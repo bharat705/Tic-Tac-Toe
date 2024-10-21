@@ -23,9 +23,10 @@ const createGame = (() => {
   const startPage = document.getElementById("start-page");
   const gamePage = document.getElementById("game-page");
 
+  const inputForm = document.getElementById("input-form");
   const playerXInput = document.getElementById("playerX");
   const playerOInput = document.getElementById("playerO");
-  const startPageStartBtn = document.querySelector(".start-btn");
+  const startBtn = document.querySelector(".start-btn");
 
   const board = document.getElementById("game-board");
   const cellElements = document.querySelectorAll("[data-cell]");
@@ -34,16 +35,20 @@ const createGame = (() => {
   const playerXScoreElement = document.getElementById("playerXScore");
   const playerOScoreElement = document.getElementById("playerOScore");
   const tieScoreElement = document.getElementById("tieScore");
+  const restartBtn = document.getElementById("restart-btn");
 
   const winningMessagePage = document.getElementById("winning-message");
   const congratulationsElement = document.getElementById("congratulation");
   const winningMessageElement = document.getElementById("winning-text");
 
+  const quitBtn = document.getElementById("quit-btn");
+  const nextRoundBtn = document.getElementById("next-round-btn");
+
   startGame();
 
   // start game and add event listener to cells
   function startGame() {
-    startPageStartBtn.addEventListener("click", displayGamePage);
+    startBtn.addEventListener("click", displayGamePage);
     cellElements.forEach((cell) => {
       cell.addEventListener("click", handleClick, { once: true });
     });
@@ -156,4 +161,32 @@ const createGame = (() => {
       board.classList.add(O_CLASS);
     }
   }
+
+  function resetGame() {
+    inputForm.reset();
+    resetCells();
+    displayStartPage();
+  }
+
+  function resetCells() {
+    cellElements.forEach((cell) => {
+      cell.classList.remove(X_CLASS, O_CLASS);
+    });
+  }
+
+  function resetScore() {
+    xScore = 0;
+    oScore = 0;
+    tieScore = 0;
+  }
+
+  function displayStartPage() {
+    startPage.style.display = "block";
+    gamePage.style.display = "none";
+    winningMessagePage.style.display = "none";
+  }
+
+  // event listeners
+  restartBtn.addEventListener("click", resetGame);
+  
 })();
