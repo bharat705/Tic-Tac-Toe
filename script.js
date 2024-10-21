@@ -54,7 +54,7 @@ const createGame = (() => {
   function displayGamePage() {
     setPlayersName();
     setCurrentValues();
-    updateGamePage();
+    updateScorePage();
     updateTurnIndicator();
     // Hide start page and show game page
     startPage.style.display = "none";
@@ -71,7 +71,7 @@ const createGame = (() => {
     currentClass = xTurn ? X_CLASS : O_CLASS;
   }
 
-  function updateGamePage() {
+  function updateScorePage() {
     playerXScoreElement.textContent = `${playerXName}: ${xScore}`;
     playerOScoreElement.textContent = `${playerOName}: ${oScore}`;
     tieScoreElement.textContent = `TIES: ${tieScore}`;
@@ -87,16 +87,18 @@ const createGame = (() => {
     setCurrentValues();
     placeMark(cell, currentClass);
     if (checkWin(currentClass)) {
-      endGame(false, currentClass);
+      endGame(false);
+      xTurn ? xScore++ : oScore++;
     } else if (isDraw()) {
       endGame(true);
+      tieScore++;
     } else {
       switchTurns();
       setCurrentValues();
-      updateGamePage();
       updateTurnIndicator();
       setBoardHoverClass();
     }
+    updateScorePage();
   }
 
   // place marks while clicking
@@ -114,7 +116,7 @@ const createGame = (() => {
   }
 
   // end game
-  function endGame(draw, currentClass) {
+  function endGame(draw) {
     if (draw) {
       congratulationsElement.textContent = "Tight Game!!";
       winningMessageElement.textContent = `It's a Tie`;
