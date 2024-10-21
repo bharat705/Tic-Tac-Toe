@@ -186,6 +186,7 @@ const createGame = (() => {
   function restartGame() {
     resetCells();
     xTurn = true;
+    setCurrentValues();
     updateScorePage();
     updateTurnIndicator();
     startGame();
