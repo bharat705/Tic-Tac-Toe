@@ -134,6 +134,7 @@ const createGame = (() => {
   }
 
   function highlightWinningCells(winningCombination) {
+    gamePage.classList.add("inactive");
     // Add a class to the cells in the winning combination
     winningCombination.forEach((index) => {
       cellElements[index].classList.add("winning-cell");
